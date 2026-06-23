@@ -240,6 +240,20 @@ select:focus, input:focus, textarea:focus {
 .icon-btn:hover { background: var(--border); color: var(--text); }
 .icon-btn.del:hover { background: #fee2e2; border-color: #fca5a5; color: #b91c1c; }
 
+/* ── Project Drag & Drop ── */
+.proj-drag-handle {
+  cursor: grab; color: var(--text3); font-size: 16px;
+  padding: 0 4px; border-radius: 4px; transition: color 0.12s;
+  user-select: none; flex-shrink: 0;
+}
+.proj-drag-handle:hover { color: var(--accent); }
+.proj-drag-handle:active { cursor: grabbing; }
+.project-card.dragging-proj { opacity: 0.4; border: 2px dashed var(--accent); }
+.project-card.drag-over-proj {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.25), var(--shadow);
+}
+
 /* ── Drag & Drop ── */
 .drag-handle {
   cursor: grab; color: var(--text3); font-size: 14px; flex-shrink: 0;
@@ -765,8 +779,17 @@ function render() {
         <button class="btn" style="background:#7c3aed;color:white;font-size:13px;padding:8px 16px;white-space:nowrap" onclick="resetRoutine('${p.id}')">来月分を開始する</button>
       </div>` : '';
 
-    return `<div class="project-card" id="proj_${p.id}">
+    return `<div class="project-card" id="proj_${p.id}"
+      data-projid="${p.id}"
+      ondragover="onProjDragOver(event,'${p.id}')"
+      ondragenter="onProjDragEnter(event,'${p.id}')"
+      ondragleave="onProjDragLeave(event,'${p.id}')"
+      ondrop="onProjDrop(event,'${p.id}')">
       <div class="project-header ${p.open?'expanded':''}" onclick="toggleProject('${p.id}')">
+        <span class="proj-drag-handle" draggable="true"
+          ondragstart="onProjDragStart(event,'${p.id}')"
+          ondragend="onProjDragEnd(event)"
+          onclick="event.stopPropagation()" title="ドラッグして並び替え">⠿</span>
         <span class="chevron ${p.open?'open':''}">▶</span>
         <div class="project-icon-wrap">${esc(p.icon||'📁')}</div>
         <div class="project-info">
@@ -810,6 +833,44 @@ function render() {
 
   document.getElementById('projectCards').innerHTML = cards;
   document.getElementById('statsChip').textContent = `${doneTasks}/${totalTasks} 完了`;
+}
+
+// ── Project Drag & Drop ──────────────────────────────────────
+let dragSrcProjId = null;
+
+function onProjDragStart(e, pid) {
+  dragSrcProjId = pid;
+  e.dataTransfer.effectAllowed = 'move';
+  e.stopPropagation();
+  setTimeout(() => e.currentTarget.classList.add('dragging-proj'), 0);
+}
+function onProjDragEnd(e) {
+  e.currentTarget.classList.remove('dragging-proj');
+  document.querySelectorAll('.project-card').forEach(el => el.classList.remove('drag-over-proj'));
+}
+function onProjDragOver(e, pid) {
+  if (!dragSrcProjId) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+function onProjDragEnter(e, pid) {
+  if (!dragSrcProjId || pid === dragSrcProjId) return;
+  e.currentTarget.classList.add('drag-over-proj');
+}
+function onProjDragLeave(e, pid) {
+  const card = e.currentTarget;
+  if (!card.contains(e.relatedTarget)) card.classList.remove('drag-over-proj');
+}
+function onProjDrop(e, tgtPid) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over-proj');
+  if (dragSrcProjId === tgtPid) return;
+  const srcIdx = data.projects.findIndex(p => p.id === dragSrcProjId);
+  const tgtIdx = data.projects.findIndex(p => p.id === tgtPid);
+  if (srcIdx === -1 || tgtIdx === -1) return;
+  const [moved] = data.projects.splice(srcIdx, 1);
+  data.projects.splice(tgtIdx, 0, moved);
+  save(); render();
 }
 
 // ── Drag & Drop ──────────────────────────────────────────────
