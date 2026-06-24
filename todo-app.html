@@ -86,51 +86,10 @@ header {
 }
 .project-nav-item.active .proj-progress-pill { background: #c7d2fe; color: var(--accent); }
 
-/* ── Routine Sidebar Section ── */
-.sidebar-routine-section {
-  border-top: 1px solid var(--border);
-  flex-shrink: 0;
-}
-.sidebar-routine-title {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.07em; color: var(--text3);
-  padding: 10px 16px 6px;
-}
-.routine-nav-item {
-  display: flex; align-items: center; gap: 8px;
-  padding: 7px 10px; border-radius: 8px; cursor: pointer;
-  font-size: 13px; font-weight: 500; color: var(--text2);
-  transition: background 0.12s; margin: 0 8px 2px;
-  user-select: none;
-}
-.routine-nav-item:hover { background: var(--bg); }
-.routine-nav-item.active { background: var(--accent-light); color: var(--accent); }
-.routine-nav-item .routine-count {
-  margin-left: auto; font-size: 11px; font-weight: 600;
-  background: var(--border); color: var(--text3);
-  padding: 1px 7px; border-radius: 10px;
-}
-.routine-nav-item.active .routine-count { background: #c7d2fe; color: var(--accent); }
-
 .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); }
 
 /* ── Main ── */
 .main { flex: 1; overflow-y: auto; padding: 28px; min-width: 0; }
-
-/* ── Routine view header ── */
-.routine-view-header {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 20px; padding: 14px 18px;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); box-shadow: var(--shadow);
-}
-.routine-view-title { font-size: 16px; font-weight: 700; }
-.routine-view-badge {
-  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 10px;
-}
-.freq-daily { background: #dbeafe; color: #1d4ed8; }
-.freq-weekly { background: #d1fae5; color: #065f46; }
-.freq-monthly { background: #ede9fe; color: #5b21b6; }
 
 /* ── Search / filter bar ── */
 .filter-bar {
@@ -360,13 +319,6 @@ select:focus, input:focus, textarea:focus {
       <input type="text" id="sideSearch" placeholder="🔍 プロジェクトを絞り込み" oninput="renderSidebar()" style="font-size:13px;">
     </div>
     <div class="project-list" id="sidebarList"></div>
-
-    <!-- ルーティンセクション -->
-    <div class="sidebar-routine-section">
-      <div class="sidebar-routine-title">ルーティン</div>
-      <div id="routineNavList" style="padding:0 8px 10px"></div>
-    </div>
-
     <div class="sidebar-footer">
       <button class="btn btn-ghost btn-sm" style="width:100%" onclick="openNewProject()">＋ 新しいプロジェクト</button>
     </div>
@@ -411,56 +363,31 @@ select:focus, input:focus, textarea:focus {
       <label>アイコン（絵文字）</label>
       <input type="text" id="projIcon" placeholder="📁" style="width:80px">
     </div>
-
-    <!-- ルーティン設定 -->
     <div class="field" style="border-top:1px solid var(--border);padding-top:14px;margin-top:4px">
-      <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">ルーティン設定</div>
-
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:12px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">繰り返し設定</div>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px">
         <input type="checkbox" id="projRoutineCheck" style="width:16px;height:16px;accent-color:#7c3aed" onchange="onRoutineChange()">
-        <span>✅ ルーティンとして設定する</span>
+        <span>✅ 全タスク完了後にルーティンとして再開する</span>
       </label>
-
-      <!-- 頻度選択（ルーティンON時に表示） -->
-      <div id="routineFreqWrap" style="display:none;padding-left:4px">
-        <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">頻度</div>
-        <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px">
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
-            <input type="radio" name="routineFreq" value="daily" id="freqDaily" style="accent-color:#1d4ed8" onchange="onFreqChange()">
-            <span style="font-weight:600;color:#1d4ed8">📅 毎日</span>
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
-            <input type="radio" name="routineFreq" value="weekly" id="freqWeekly" style="accent-color:#065f46" onchange="onFreqChange()">
-            <span style="font-weight:600;color:#065f46">📆 毎週</span>
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
-            <input type="radio" name="routineFreq" value="monthly" id="freqMonthly" style="accent-color:#5b21b6" onchange="onFreqChange()">
-            <span style="font-weight:600;color:#5b21b6">🗓️ 毎月</span>
-          </label>
-        </div>
-
-        <!-- 毎月：指定日リセット（月次のみ表示） -->
-        <div id="recurDayWrap" style="display:none;flex-direction:column;gap:8px">
-          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px">
-            <input type="checkbox" id="projRecurCheck" style="width:14px;height:14px;accent-color:var(--accent)"
-              onchange="document.getElementById('recurDayInner').style.display=this.checked?'flex':'none'">
-            🔄 毎月指定日にリセット
-          </label>
-          <div id="recurDayInner" style="display:none;align-items:center;gap:8px;padding-left:22px">
-            <span style="font-size:13px;color:var(--text2)">毎月</span>
-            <input type="number" id="projRecurDay" min="1" max="31" placeholder="1" style="width:70px;text-align:center">
-            <span style="font-size:13px;color:var(--text2)">日にリセット</span>
-          </div>
-        </div>
-
-        <!-- 完了バナー設定 -->
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;margin-top:8px">
-          <input type="checkbox" id="projCompleteBannerCheck" style="width:14px;height:14px;accent-color:#7c3aed">
-          <span>全タスク完了後に再開バナーを表示</span>
-        </label>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px">
+        <input type="checkbox" id="projRecurCheck" style="width:16px;height:16px;accent-color:var(--accent)" onchange="document.getElementById('recurDayWrap').style.display=this.checked?'flex':'none'">
+        🔄 毎月指定日にリセット
+      </label>
+      <div id="recurDayWrap" style="display:none;align-items:center;gap:8px;margin-bottom:10px;padding-left:24px">
+        <span style="font-size:13px;color:var(--text2)">毎月</span>
+        <input type="number" id="projRecurDay" min="1" max="31" placeholder="1" style="width:70px;text-align:center">
+        <span style="font-size:13px;color:var(--text2)">日にリセット</span>
+      </div>
+      <!-- ★ 次回実施日の指定 -->
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:8px">
+        <input type="checkbox" id="projScheduledCheck" style="width:16px;height:16px;accent-color:#0ea5e9" onchange="document.getElementById('scheduledDateWrap').style.display=this.checked?'flex':'none'">
+        📅 次回実施日を指定（特定の日付でリセット）
+      </label>
+      <div id="scheduledDateWrap" style="display:none;align-items:center;gap:8px;padding-left:24px">
+        <input type="date" id="projScheduledDate" style="width:170px">
+        <span style="font-size:12px;color:var(--text2)">この日に自動でリセット</span>
       </div>
     </div>
-
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('projectModal')">キャンセル</button>
       <button class="btn btn-primary" onclick="saveProject()">保存</button>
@@ -498,33 +425,6 @@ select:focus, input:focus, textarea:focus {
         <input type="date" id="editTaskDue">
       </div>
     </div>
-
-    <!-- タスク個別ルーティン設定 -->
-    <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:4px">
-      <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">ルーティン設定</div>
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px;font-size:13px">
-        <input type="checkbox" id="editTaskRoutineCheck" style="width:15px;height:15px;accent-color:#7c3aed" onchange="onEditTaskRoutineChange()">
-        🔄 ルーティンタスクとして設定
-      </label>
-      <div id="editTaskFreqWrap" style="display:none;padding-left:4px">
-        <div style="display:flex;gap:20px;flex-wrap:wrap">
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
-            <input type="radio" name="editTaskFreq" value="daily" id="editFreqDaily" style="accent-color:#1d4ed8">
-            <span style="font-weight:600;color:#1d4ed8">📅 毎日</span>
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
-            <input type="radio" name="editTaskFreq" value="weekly" id="editFreqWeekly" style="accent-color:#065f46">
-            <span style="font-weight:600;color:#065f46">📆 毎週</span>
-          </label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
-            <input type="radio" name="editTaskFreq" value="monthly" id="editFreqMonthly" style="accent-color:#5b21b6">
-            <span style="font-weight:600;color:#5b21b6">🗓️ 毎月</span>
-          </label>
-        </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:8px">期間が変わると自動的にチェックがリセットされます</div>
-      </div>
-    </div>
-
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('taskModal')">キャンセル</button>
       <button class="btn btn-primary" onclick="saveTaskEdit()">保存</button>
@@ -541,8 +441,7 @@ if (!data) {
     projects: [
       {
         id: uid(), icon: '🎬', name: '森山様', desc: '',
-        open: true, routine: true, routineFrequency: 'monthly', completeBanner: true,
-        recurrenceDay: null, lastReset: null,
+        open: true, routine: true, recurrenceDay: null, lastReset: null, scheduledDate: null,
         tasks: [
           { id: uid(), title: '企画書作成', desc: '', assignee: '', priority: 'medium', due: '', done: false },
           { id: uid(), title: 'スケジュール作成', desc: '', assignee: '', priority: 'medium', due: '', done: false },
@@ -551,21 +450,21 @@ if (!data) {
       },
       {
         id: uid(), icon: '📸', name: 'レベクリ', desc: '',
-        open: true,
+        open: true, scheduledDate: null,
         tasks: [
           { id: uid(), title: 'インスタ投稿', desc: '', assignee: '', priority: 'medium', due: '', done: false },
         ]
       },
       {
         id: uid(), icon: '🏢', name: 'AIZAC', desc: '',
-        open: true,
+        open: true, scheduledDate: null,
         tasks: [
           { id: uid(), title: 'キャスティング事業部資料作成', desc: '', assignee: '', priority: 'medium', due: '', done: false },
         ]
       },
       {
         id: uid(), icon: '🗓️', name: '秘書', desc: '',
-        open: true,
+        open: true, scheduledDate: null,
         tasks: [
           { id: uid(), title: '送迎', desc: '', assignee: '', priority: 'medium', due: '', done: false },
           { id: uid(), title: '会食・商談参加', desc: '', assignee: '', priority: 'medium', due: '', done: false },
@@ -574,21 +473,9 @@ if (!data) {
     ]
   };
   save();
-} else {
-  // マイグレーション: 既存データに routineFrequency がない場合に付与
-  data.projects.forEach(p => {
-    if (p.routine && !p.routineFrequency) {
-      p.routineFrequency = p.recurrenceDay ? 'monthly' : 'monthly';
-    }
-    if (p.routine && p.completeBanner === undefined) {
-      p.completeBanner = true;
-    }
-  });
-  save();
 }
 
 let statusFilter = 'all';
-let routineFilter = null; // null | 'daily' | 'weekly' | 'monthly'
 let editingProjectId = null;
 let editingTaskId = null;
 let editingTaskProjectId = null;
@@ -597,10 +484,11 @@ function uid() { return Date.now().toString(36) + Math.random().toString(36).sli
 function nd(d) { const dt = new Date(); dt.setDate(dt.getDate()+d); return dt.toISOString().slice(0,10); }
 function save() { localStorage.setItem('todo_v3', JSON.stringify(data)); }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function today() { return new Date().toISOString().slice(0,10); }
 
 function isOverdue(due, done) {
   if (!due || done) return false;
-  return due < new Date().toISOString().slice(0,10);
+  return due < today();
 }
 function fmtDate(d) {
   if (!d) return '';
@@ -611,64 +499,25 @@ function fmtDate(d) {
 const PRI = { high:'高', medium:'中', low:'低' };
 const PRI_CLS = { high:'p-high', medium:'p-medium', low:'p-low' };
 
-const FREQ_LABEL = { daily:'📅 毎日', weekly:'📆 毎週', monthly:'🗓️ 毎月' };
-const FREQ_CLASS = { daily:'freq-daily', weekly:'freq-weekly', monthly:'freq-monthly' };
-const FREQ_EMOJI = { daily:'📅', weekly:'📆', monthly:'🗓️' };
-
-// ── Date helpers ────────────────────────────────────────────
-function currentYM() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-}
-
-function currentWeekKey() {
-  const d = new Date();
-  const monday = new Date(d);
-  monday.setDate(d.getDate() - ((d.getDay() + 6) % 7));
-  return monday.toISOString().slice(0,10);
-}
-
-function currentDateKey() {
-  return new Date().toISOString().slice(0,10);
-}
-
-function getResetKey(freq) {
-  if (freq === 'daily') return currentDateKey();
-  if (freq === 'weekly') return currentWeekKey();
-  if (freq === 'monthly') return currentYM();
-  return null;
-}
-
 // ── Project CRUD ──────────────────────────────────────────────
 function onRoutineChange() {
-  const isRoutine = document.getElementById('projRoutineCheck').checked;
-  document.getElementById('routineFreqWrap').style.display = isRoutine ? 'block' : 'none';
+  // no extra UI needed for routine
 }
 
-function onFreqChange() {
-  const freq = document.querySelector('input[name="routineFreq"]:checked')?.value;
-  const recurWrap = document.getElementById('recurDayWrap');
-  recurWrap.style.display = freq === 'monthly' ? 'flex' : 'none';
-}
-
-function setModalRoutineUI(routine, freq, recurDay, completeBanner) {
+function setRecurUI(routine, day, scheduledDate) {
   document.getElementById('projRoutineCheck').checked = !!routine;
-  document.getElementById('routineFreqWrap').style.display = routine ? 'block' : 'none';
+  const check = document.getElementById('projRecurCheck');
+  const wrap = document.getElementById('recurDayWrap');
+  check.checked = !!day;
+  wrap.style.display = day ? 'flex' : 'none';
+  document.getElementById('projRecurDay').value = day || '';
 
-  // set frequency radio
-  const freqVal = freq || 'monthly';
-  const radio = document.querySelector(`input[name="routineFreq"][value="${freqVal}"]`);
-  if (radio) radio.checked = true;
-
-  // show recur day wrap only for monthly
-  document.getElementById('recurDayWrap').style.display = freqVal === 'monthly' ? 'flex' : 'none';
-
-  const hasDay = !!recurDay;
-  document.getElementById('projRecurCheck').checked = hasDay;
-  document.getElementById('recurDayInner').style.display = hasDay ? 'flex' : 'none';
-  document.getElementById('projRecurDay').value = recurDay || '';
-
-  document.getElementById('projCompleteBannerCheck').checked = completeBanner !== false;
+  // scheduled date
+  const schedCheck = document.getElementById('projScheduledCheck');
+  const schedWrap = document.getElementById('scheduledDateWrap');
+  schedCheck.checked = !!scheduledDate;
+  schedWrap.style.display = scheduledDate ? 'flex' : 'none';
+  document.getElementById('projScheduledDate').value = scheduledDate || '';
 }
 
 function openNewProject() {
@@ -677,7 +526,7 @@ function openNewProject() {
   document.getElementById('projName').value = '';
   document.getElementById('projDesc').value = '';
   document.getElementById('projIcon').value = '';
-  setModalRoutineUI(false, 'monthly', null, true);
+  setRecurUI(false, null, null);
   document.getElementById('projectModal').classList.add('open');
   setTimeout(() => document.getElementById('projName').focus(), 50);
 }
@@ -690,7 +539,7 @@ function openEditProject(id) {
   document.getElementById('projName').value = p.name;
   document.getElementById('projDesc').value = p.desc||'';
   document.getElementById('projIcon').value = p.icon||'';
-  setModalRoutineUI(p.routine||false, p.routineFrequency||'monthly', p.recurrenceDay||null, p.completeBanner !== false);
+  setRecurUI(p.routine||false, p.recurrenceDay||null, p.scheduledDate||null);
   document.getElementById('projectModal').classList.add('open');
   setTimeout(() => document.getElementById('projName').focus(), 50);
 }
@@ -701,27 +550,26 @@ function saveProject() {
   const icon = document.getElementById('projIcon').value.trim() || '📁';
   const desc = document.getElementById('projDesc').value.trim();
   const routine = document.getElementById('projRoutineCheck').checked;
-  const routineFrequency = document.querySelector('input[name="routineFreq"]:checked')?.value || 'monthly';
-  const completeBanner = document.getElementById('projCompleteBannerCheck').checked;
-  const recurChecked = document.getElementById('projRecurCheck').checked;
-  const recurDay = (routine && routineFrequency === 'monthly' && recurChecked)
-    ? parseInt(document.getElementById('projRecurDay').value) || null
-    : null;
+  const checked = document.getElementById('projRecurCheck').checked;
+  const recurDay = checked ? parseInt(document.getElementById('projRecurDay').value) || null : null;
+
+  // ★ 次回実施日
+  const schedChecked = document.getElementById('projScheduledCheck').checked;
+  const scheduledDate = schedChecked ? (document.getElementById('projScheduledDate').value || null) : null;
 
   if (editingProjectId) {
     const p = data.projects.find(p=>p.id===editingProjectId);
     if (p) {
       p.name = name; p.desc = desc; p.icon = icon;
-      p.routine = routine; p.routineFrequency = routine ? routineFrequency : null;
-      p.completeBanner = completeBanner;
-      p.recurrenceDay = recurDay;
+      p.routine = routine; p.recurrenceDay = recurDay;
+      p.scheduledDate = scheduledDate;
     }
   } else {
     data.projects.push({
-      id: uid(), icon, name, desc, open: true,
-      routine, routineFrequency: routine ? routineFrequency : null,
-      completeBanner,
-      recurrenceDay: recurDay, lastReset: null, tasks: []
+      id: uid(), icon, name, desc,
+      open: true, routine, recurrenceDay: recurDay,
+      lastReset: null, scheduledDate,
+      tasks: []
     });
   }
   save(); closeModal('projectModal'); render();
@@ -731,7 +579,37 @@ function resetRoutine(projectId) {
   const p = data.projects.find(p=>p.id===projectId);
   if (!p) return;
   p.tasks.forEach(t => { t.done = false; });
-  p.lastReset = null;
+  p.scheduledDate = null; // clear scheduled date after manual reset
+  save(); render();
+}
+
+// ★ 完了後バナーから次回実施日を設定してタスクリセット
+function setScheduledAndReset(projectId) {
+  const p = data.projects.find(p=>p.id===projectId);
+  if (!p) return;
+  const dateInput = document.getElementById('banner_date_' + projectId);
+  const dateVal = dateInput ? dateInput.value : '';
+  if (!dateVal) { if (dateInput) dateInput.focus(); return; }
+  p.scheduledDate = dateVal;
+  save(); render();
+}
+
+// ★ 完了後バナーから次回実施日を設定（リセットしない、日付だけ保存）
+function saveScheduledDateOnly(projectId) {
+  const p = data.projects.find(p=>p.id===projectId);
+  if (!p) return;
+  const dateInput = document.getElementById('banner_date_' + projectId);
+  const dateVal = dateInput ? dateInput.value : '';
+  if (!dateVal) { if (dateInput) dateInput.focus(); return; }
+  p.scheduledDate = dateVal;
+  save(); render();
+}
+
+// ★ 設定済みの次回実施日をクリア
+function clearScheduledDate(projectId) {
+  const p = data.projects.find(p=>p.id===projectId);
+  if (!p) return;
+  p.scheduledDate = null;
   save(); render();
 }
 
@@ -784,11 +662,6 @@ function deleteTask(projectId, taskId) {
   if (p) { p.tasks = p.tasks.filter(t=>t.id!==taskId); save(); render(); }
 }
 
-function onEditTaskRoutineChange() {
-  const checked = document.getElementById('editTaskRoutineCheck').checked;
-  document.getElementById('editTaskFreqWrap').style.display = checked ? 'block' : 'none';
-}
-
 function openEditTask(projectId, taskId) {
   const p = data.projects.find(p=>p.id===projectId);
   const t = p?.tasks.find(t=>t.id===taskId);
@@ -800,19 +673,6 @@ function openEditTask(projectId, taskId) {
   document.getElementById('editTaskAssignee').value = t.assignee||'';
   document.getElementById('editTaskPriority').value = t.priority;
   document.getElementById('editTaskDue').value = t.due||'';
-
-  // ルーティン設定を復元
-  const hasRoutine = !!t.routineFrequency;
-  document.getElementById('editTaskRoutineCheck').checked = hasRoutine;
-  document.getElementById('editTaskFreqWrap').style.display = hasRoutine ? 'block' : 'none';
-  if (hasRoutine) {
-    const radio = document.querySelector(`input[name="editTaskFreq"][value="${t.routineFrequency}"]`);
-    if (radio) radio.checked = true;
-  } else {
-    // デフォルトで毎日を選択
-    document.getElementById('editFreqDaily').checked = true;
-  }
-
   document.getElementById('taskModal').classList.add('open');
   setTimeout(() => document.getElementById('editTaskTitle').focus(), 50);
 }
@@ -828,21 +688,6 @@ function saveTaskEdit() {
     t.assignee = document.getElementById('editTaskAssignee').value.trim();
     t.priority = document.getElementById('editTaskPriority').value;
     t.due = document.getElementById('editTaskDue').value;
-
-    // ルーティン設定を保存
-    const hasRoutine = document.getElementById('editTaskRoutineCheck').checked;
-    if (hasRoutine) {
-      const freq = document.querySelector('input[name="editTaskFreq"]:checked')?.value || 'daily';
-      // 頻度が変わった場合はリセットキーをクリア
-      if (t.routineFrequency !== freq) {
-        t.lastReset = null;
-      }
-      t.routineFrequency = freq;
-    } else {
-      t.routineFrequency = null;
-      t.lastReset = null;
-    }
-
     save(); render();
   }
   closeModal('taskModal');
@@ -865,11 +710,6 @@ function setStatus(v, btn) {
   render();
 }
 
-function setRoutineFilter(freq) {
-  routineFilter = (routineFilter === freq) ? null : freq;
-  render();
-}
-
 function filterTasks(tasks) {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const pri = document.getElementById('filterPri').value;
@@ -882,7 +722,36 @@ function filterTasks(tasks) {
   });
 }
 
-// ── Recurrence check ─────────────────────────────────────────
+// ── Monthly Recurrence ───────────────────────────────────────
+function currentYM() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+}
+
+function checkRecurrence() {
+  const todayStr = today();
+  const todayDay = new Date().getDate();
+  const ym = currentYM();
+  let changed = false;
+  data.projects.forEach(p => {
+    // 毎月指定日リセット
+    if (p.recurrenceDay) {
+      if (p.lastReset !== ym && todayDay >= p.recurrenceDay) {
+        p.tasks.forEach(t => { t.done = false; });
+        p.lastReset = ym;
+        changed = true;
+      }
+    }
+    // ★ 次回実施日リセット
+    if (p.scheduledDate && p.scheduledDate <= todayStr) {
+      p.tasks.forEach(t => { t.done = false; });
+      p.scheduledDate = null;
+      changed = true;
+    }
+  });
+  if (changed) save();
+}
+
 function nextResetDate(p) {
   if (!p.recurrenceDay) return '';
   const now = new Date();
@@ -897,88 +766,20 @@ function nextResetDate(p) {
   return `${y}/${String(m+1).padStart(2,'0')}/${String(day).padStart(2,'0')}`;
 }
 
-function checkRecurrence() {
-  const today = new Date();
-  const todayDay = today.getDate();
-  let changed = false;
-
-  data.projects.forEach(p => {
-    if (!p.routine || !p.routineFrequency) return;
-
-    const freq = p.routineFrequency;
-
-    if (freq === 'monthly') {
-      // 指定日リセット
-      if (!p.recurrenceDay) return;
-      const ym = currentYM();
-      if (p.lastReset === ym) return;
-      if (todayDay >= p.recurrenceDay) {
-        p.tasks.forEach(t => { t.done = false; });
-        p.lastReset = ym;
-        changed = true;
-      }
-    } else {
-      // daily / weekly
-      const resetKey = getResetKey(freq);
-      if (p.lastReset === resetKey) return;
-      p.tasks.forEach(t => { t.done = false; });
-      p.lastReset = resetKey;
-      changed = true;
-    }
-  });
-
-  // タスク個別のルーティンチェック
-  data.projects.forEach(p => {
-    p.tasks.forEach(t => {
-      if (!t.routineFrequency) return;
-      const resetKey = getResetKey(t.routineFrequency);
-      if (t.lastReset === resetKey) return;
-      t.done = false;
-      t.lastReset = resetKey;
-      changed = true;
-    });
-  });
-
-  if (changed) save();
-}
-
 // ── Render ────────────────────────────────────────────────────
 function renderSidebar() {
-  // プロジェクトリスト
   const q = document.getElementById('sideSearch').value.toLowerCase();
   const projs = data.projects.filter(p => !q || p.name.toLowerCase().includes(q));
   const list = document.getElementById('sidebarList');
   list.innerHTML = projs.map(p => {
     const total = p.tasks.length;
     const done = p.tasks.filter(t=>t.done).length;
-    return `<div class="project-nav-item" onclick="clearRoutineFilter();scrollToProject('${p.id}')">
+    return `<div class="project-nav-item" onclick="scrollToProject('${p.id}')">
       <span class="proj-icon">${esc(p.icon||'📁')}</span>
       <span class="proj-name">${esc(p.name)}</span>
       <span class="proj-progress-pill">${done}/${total}</span>
     </div>`;
   }).join('') || '<div style="padding:16px;font-size:13px;color:var(--text3);text-align:center">一致なし</div>';
-
-  // ルーティンナビ
-  const freqs = ['daily', 'weekly', 'monthly'];
-  const freqInfo = {
-    daily:   { label: '📅 毎日',  cls: 'freq-daily' },
-    weekly:  { label: '📆 毎週',  cls: 'freq-weekly' },
-    monthly: { label: '🗓️ 毎月', cls: 'freq-monthly' },
-  };
-  const navList = document.getElementById('routineNavList');
-  navList.innerHTML = freqs.map(freq => {
-    const count = data.projects.filter(p => p.routine && p.routineFrequency === freq).length;
-    const isActive = routineFilter === freq;
-    return `<div class="routine-nav-item ${isActive ? 'active' : ''}" onclick="setRoutineFilter('${freq}')">
-      <span>${freqInfo[freq].label}</span>
-      <span class="routine-count">${count}</span>
-    </div>`;
-  }).join('');
-}
-
-function clearRoutineFilter() {
-  routineFilter = null;
-  renderSidebar();
 }
 
 function scrollToProject(id) {
@@ -993,30 +794,7 @@ function render() {
   const pri = document.getElementById('filterPri').value;
   let totalTasks = 0, doneTasks = 0;
 
-  // ルーティンフィルター適用
-  let projs = data.projects;
-  if (routineFilter) {
-    projs = projs.filter(p => p.routine && p.routineFrequency === routineFilter);
-  }
-
-  // ルーティンビューヘッダー
-  let routineHeader = '';
-  if (routineFilter) {
-    const freqInfo = {
-      daily:   { emoji: '📅', label: '毎日のルーティン', cls: 'freq-daily' },
-      weekly:  { emoji: '📆', label: '毎週のルーティン', cls: 'freq-weekly' },
-      monthly: { emoji: '🗓️', label: '毎月のルーティン', cls: 'freq-monthly' },
-    };
-    const info = freqInfo[routineFilter];
-    routineHeader = `<div class="routine-view-header">
-      <span style="font-size:24px">${info.emoji}</span>
-      <div class="routine-view-title">${info.label}</div>
-      <span class="routine-view-badge badge ${info.cls}">${projs.length}件</span>
-      <button class="btn btn-ghost btn-sm" onclick="clearRoutineFilter();render()" style="margin-left:auto">✕ 解除</button>
-    </div>`;
-  }
-
-  const cards = projs.map(p => {
+  const cards = data.projects.map(p => {
     const filtered = filterTasks(p.tasks);
     totalTasks += p.tasks.length;
     doneTasks += p.tasks.filter(t=>t.done).length;
@@ -1042,7 +820,6 @@ function render() {
           <div class="task-top">
             <span class="task-title">${esc(t.title)}</span>
             <span class="badge ${PRI_CLS[t.priority]}">${PRI[t.priority]}</span>
-            ${t.routineFrequency ? `<span class="badge ${FREQ_CLASS[t.routineFrequency]}">${FREQ_LABEL[t.routineFrequency]}</span>` : ''}
           </div>
           ${t.desc ? `<div class="task-desc-text">${esc(t.desc)}</div>` : ''}
           <div class="task-foot">
@@ -1057,35 +834,57 @@ function render() {
       </div>`;
     }).join('');
 
-    const emptyMsg = filtered.length === 0
-      ? `<div class="empty-tasks">${q||pri ? '条件に一致するタスクがありません' : 'タスクがありません。下から追加できます。'}</div>`
-      : '';
+    const emptyMsg = filtered.length === 0 ? `<div class="empty-tasks">${q||pri ? '条件に一致するタスクがありません' : 'タスクがありません。下から追加できます。'}</div>` : '';
 
     const allComplete = p.tasks.length > 0 && p.tasks.every(t => t.done);
-    const showBanner = p.routine && allComplete && p.completeBanner !== false;
 
-    // バナーメッセージをフリクエンシーに合わせる
-    const bannerMsgMap = {
-      daily: { title: '今日のルーティン完了！', sub: 'お疲れ様でした。明日また頑張りましょう！', btn: '明日分を開始する' },
-      weekly: { title: '今週のルーティン完了！', sub: 'お疲れ様でした。来週分を準備しますか？', btn: '来週分を開始する' },
-      monthly: { title: '今月のルーティン完了！', sub: 'お疲れ様でした。来月分を準備しますか？', btn: '来月分を開始する' },
-    };
-    const bannerMsg = bannerMsgMap[p.routineFrequency] || bannerMsgMap.monthly;
-
-    const routineBanner = showBanner ? `
-      <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f3e8ff,#ede9fe);border:1px solid #c4b5fd;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease">
-        <span style="font-size:24px">🎉</span>
+    // ★ 次回実施日バナー（設定済み・待機中）
+    const scheduledBanner = (!allComplete && p.scheduledDate) ? `
+      <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #7dd3fc;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease">
+        <span style="font-size:22px">📅</span>
         <div style="flex:1">
-          <div style="font-size:14px;font-weight:700;color:#5b21b6">${bannerMsg.title}</div>
-          <div style="font-size:12px;color:#7c3aed;margin-top:2px">${bannerMsg.sub}</div>
+          <div style="font-size:13px;font-weight:700;color:#0369a1">次回実施日：${fmtDate(p.scheduledDate)}</div>
+          <div style="font-size:11px;color:#0284c7;margin-top:2px">この日にタスクが自動でリセットされます</div>
         </div>
-        <button class="btn" style="background:#7c3aed;color:white;font-size:13px;padding:8px 16px;white-space:nowrap" onclick="resetRoutine('${p.id}')">${bannerMsg.btn}</button>
+        <button class="btn btn-sm" style="background:white;color:#0369a1;border:1px solid #7dd3fc;white-space:nowrap" onclick="openEditProject('${p.id}')">変更</button>
+        <button class="btn btn-sm" style="background:white;color:#64748b;border:1px solid var(--border);white-space:nowrap" onclick="clearScheduledDate('${p.id}')">✕</button>
       </div>` : '';
 
-    // 頻度バッジ
-    const freqBadge = p.routine && p.routineFrequency
-      ? `<span class="badge ${FREQ_CLASS[p.routineFrequency]}" style="font-size:10px">${FREQ_LABEL[p.routineFrequency]}</span>`
-      : '';
+    // ★ 完了バナー（ルーティン）
+    let routineBanner = '';
+    if (p.routine && allComplete) {
+      if (p.scheduledDate) {
+        // 次回実施日が設定済みの場合
+        routineBanner = `
+        <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f3e8ff,#ede9fe);border:1px solid #c4b5fd;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease">
+          <span style="font-size:24px">🎉</span>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:700;color:#5b21b6">今月の撮影お疲れ様でした！</div>
+            <div style="font-size:12px;color:#7c3aed;margin-top:2px">次回実施日：<strong>${fmtDate(p.scheduledDate)}</strong> に自動でリセットされます</div>
+          </div>
+          <button class="btn btn-sm" style="background:white;color:#7c3aed;border:1px solid #c4b5fd;white-space:nowrap" onclick="openEditProject('${p.id}')">日付を変更</button>
+          <button class="btn btn-sm" style="background:#7c3aed;color:white;white-space:nowrap" onclick="resetRoutine('${p.id}')">今すぐ開始</button>
+        </div>`;
+      } else {
+        // 次回実施日が未設定の場合 → 日付ピッカーを表示
+        routineBanner = `
+        <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f3e8ff,#ede9fe);border:1px solid #c4b5fd;border-radius:10px;padding:14px 16px;animation:fadeUp .3s ease">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <span style="font-size:24px">🎉</span>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700;color:#5b21b6">今月の撮影お疲れ様でした！</div>
+              <div style="font-size:12px;color:#7c3aed;margin-top:2px">次回実施日を設定するか、今すぐ開始できます</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-left:36px">
+            <span style="font-size:13px;color:#5b21b6;font-weight:600">📅 次回実施日：</span>
+            <input type="date" id="banner_date_${p.id}" style="width:160px;font-size:13px;padding:6px 10px;border:1px solid #c4b5fd;border-radius:8px;background:white;color:#1e1b4b" min="${today()}">
+            <button class="btn btn-sm" style="background:#6366f1;color:white;white-space:nowrap" onclick="saveScheduledDateOnly('${p.id}')">設定して待機</button>
+            <button class="btn btn-sm" style="background:white;color:#7c3aed;border:1px solid #c4b5fd;white-space:nowrap" onclick="resetRoutine('${p.id}')">今すぐ開始</button>
+          </div>
+        </div>`;
+      }
+    }
 
     return `<div class="project-card" id="proj_${p.id}"
       data-projid="${p.id}"
@@ -1103,7 +902,9 @@ function render() {
         <div class="project-info">
           <div class="project-name" style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
             ${esc(p.name)}
-            ${freqBadge}
+            ${p.routine ? `<span style="font-size:10px;font-weight:700;background:#f3e8ff;color:#7c3aed;padding:2px 7px;border-radius:10px;letter-spacing:.03em">✅ ルーティン</span>` : ''}
+            ${p.recurrenceDay ? `<span style="font-size:10px;font-weight:700;background:#ede9fe;color:#6366f1;padding:2px 7px;border-radius:10px;letter-spacing:.03em">🔄 毎月${p.recurrenceDay}日</span>` : ''}
+            ${p.scheduledDate && !allComplete ? `<span style="font-size:10px;font-weight:700;background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:10px;letter-spacing:.03em">📅 ${fmtDate(p.scheduledDate)}</span>` : ''}
           </div>
           ${p.desc ? `<div class="project-desc">${esc(p.desc)}</div>` : ''}
           ${p.recurrenceDay ? `<div style="font-size:11px;color:var(--text3);margin-top:2px">次回リセット：${nextResetDate(p)}</div>` : ''}
@@ -1118,6 +919,7 @@ function render() {
         </div>
       </div>
       ${p.open ? `<div class="task-area">
+        ${scheduledBanner}
         ${routineBanner}
         <div class="tasks">${taskRows}${emptyMsg}</div>
         <div class="add-task-row">
@@ -1134,11 +936,11 @@ function render() {
       </div>` : ''}
     </div>`;
   }).join('') || `<div style="text-align:center;padding:60px 20px;color:var(--text3)">
-    <div style="font-size:40px;margin-bottom:12px">${routineFilter ? FREQ_EMOJI[routineFilter] : '📂'}</div>
-    <p style="font-size:15px">${routineFilter ? `${FREQ_LABEL[routineFilter]}のプロジェクトがありません<br><button class="btn btn-ghost btn-sm" style="margin-top:12px" onclick="clearRoutineFilter();render()">すべて表示</button>` : 'プロジェクトがありません<br><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openNewProject()">最初のプロジェクトを作成</button>'}</p>
+    <div style="font-size:40px;margin-bottom:12px">📂</div>
+    <p style="font-size:15px">プロジェクトがありません<br><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="openNewProject()">最初のプロジェクトを作成</button></p>
   </div>`;
 
-  document.getElementById('projectCards').innerHTML = routineHeader + cards;
+  document.getElementById('projectCards').innerHTML = cards;
   document.getElementById('statsChip').textContent = `${doneTasks}/${totalTasks} 完了`;
 }
 
@@ -1180,7 +982,7 @@ function onProjDrop(e, tgtPid) {
   save(); render();
 }
 
-// ── Task Drag & Drop ──────────────────────────────────────────
+// ── Drag & Drop ──────────────────────────────────────────────
 let dragSrcPid = null, dragSrcTid = null;
 
 function onDragStart(e, pid, tid) {
@@ -1212,7 +1014,7 @@ function onDrop(e, tgtPid, tgtTid) {
   e.preventDefault();
   e.currentTarget.classList.remove('drag-over');
   if (dragSrcTid === tgtTid) return;
-  if (dragSrcPid !== tgtPid) return;
+  if (dragSrcPid !== tgtPid) return; // only within same project
 
   const p = data.projects.find(p => p.id === tgtPid);
   if (!p) return;
