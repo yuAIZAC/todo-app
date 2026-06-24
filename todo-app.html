@@ -28,30 +28,22 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-/* ── Header ── */
 header {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   padding: 0 28px;
   height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; z-index: 200;
   box-shadow: var(--shadow);
 }
 .logo { font-size: 17px; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 8px; }
 .logo-icon { font-size: 20px; }
 .header-right { display: flex; align-items: center; gap: 10px; }
-.stats-chip {
-  background: var(--accent-light); color: var(--accent);
-  font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px;
-}
+.stats-chip { background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
 
-/* ── Layout ── */
 .layout { display: flex; gap: 0; height: calc(100vh - 56px); }
 
-/* ── Sidebar ── */
 .sidebar {
   width: 260px; min-width: 260px;
   background: var(--surface);
@@ -59,43 +51,26 @@ header {
   display: flex; flex-direction: column;
   overflow: hidden;
 }
-.sidebar-header {
-  padding: 16px 16px 12px;
-  border-bottom: 1px solid var(--border);
-  display: flex; flex-direction: column; gap: 10px;
-}
+.sidebar-header { padding: 16px 16px 12px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
 .sidebar-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); }
-
 .project-list { overflow-y: auto; flex: 1; padding: 8px; }
-
 .project-nav-item {
   display: flex; align-items: center; gap: 8px;
   padding: 8px 10px; border-radius: 8px; cursor: pointer;
   font-size: 14px; font-weight: 500; color: var(--text2);
-  transition: background 0.12s;
-  user-select: none;
+  transition: background 0.12s; user-select: none;
 }
 .project-nav-item:hover { background: var(--bg); }
 .project-nav-item.active { background: var(--accent-light); color: var(--accent); }
 .project-nav-item .proj-icon { font-size: 16px; flex-shrink: 0; }
 .project-nav-item .proj-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.proj-progress-pill {
-  font-size: 11px; font-weight: 600; color: var(--text3);
-  background: var(--border); padding: 1px 7px; border-radius: 10px;
-  flex-shrink: 0;
-}
+.proj-progress-pill { font-size: 11px; font-weight: 600; color: var(--text3); background: var(--border); padding: 1px 7px; border-radius: 10px; flex-shrink: 0; }
 .project-nav-item.active .proj-progress-pill { background: #c7d2fe; color: var(--accent); }
-
 .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); }
 
-/* ── Main ── */
 .main { flex: 1; overflow-y: auto; padding: 28px; min-width: 0; }
 
-/* ── Search / filter bar ── */
-.filter-bar {
-  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
-  margin-bottom: 24px;
-}
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 24px; }
 .search-wrap { flex: 1; min-width: 180px; position: relative; }
 .search-wrap input { width: 100%; padding-left: 34px; }
 .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 14px; pointer-events: none; }
@@ -117,70 +92,41 @@ select:focus, input:focus, textarea:focus {
 .tab { padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--text2); transition: all 0.15s; }
 .tab.active { background: var(--accent); border-color: var(--accent); color: white; }
 
-/* ── Project card ── */
 .project-card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); margin-bottom: 20px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
+  box-shadow: var(--shadow); overflow: hidden;
 }
-.project-card.selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(99,102,241,0.15), var(--shadow); }
-
 .project-header {
   padding: 16px 18px 14px;
   display: flex; align-items: center; gap: 12px;
-  cursor: pointer;
-  border-bottom: 1px solid transparent;
+  cursor: pointer; border-bottom: 1px solid transparent;
   transition: background 0.12s;
 }
 .project-header:hover { background: var(--surface2); }
 .project-header.expanded { border-bottom-color: var(--border); }
-
 .chevron { font-size: 13px; color: var(--text3); transition: transform 0.2s; flex-shrink: 0; }
 .chevron.open { transform: rotate(90deg); }
-
-.project-icon-wrap {
-  width: 36px; height: 36px; border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
-  background: var(--accent-light);
-}
+.project-icon-wrap { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; background: var(--accent-light); }
 .project-info { flex: 1; min-width: 0; }
 .project-name { font-size: 16px; font-weight: 700; }
 .project-desc { font-size: 12px; color: var(--text2); margin-top: 2px; }
-
 .project-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-
 .progress-bar-wrap { width: 90px; }
 .progress-bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
 .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s; }
 .progress-label { font-size: 11px; color: var(--text3); margin-top: 3px; text-align: right; }
-
-.proj-action-btn {
-  width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border);
-  background: var(--bg); cursor: pointer; display: flex; align-items: center;
-  justify-content: center; font-size: 13px; color: var(--text3);
-  transition: all 0.12s;
-}
+.proj-action-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--text3); transition: all 0.12s; }
 .proj-action-btn:hover { background: var(--border); color: var(--text); }
 .proj-action-btn.del:hover { background: #fee2e2; border-color: #fca5a5; color: #b91c1c; }
 
-/* ── Task list inside project ── */
 .task-area { padding: 0 18px 14px; }
-
-.add-task-row {
-  display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end;
-  padding: 12px 0 4px;
-}
+.add-task-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; padding: 12px 0 4px; }
 .add-task-row input[type=text] { flex: 1; min-width: 150px; }
 .add-task-row input[type=date] { width: 140px; }
 .add-task-row select { width: 90px; }
 
-.btn {
-  padding: 8px 16px; border-radius: 8px; font-size: 13px;
-  font-weight: 600; cursor: pointer; border: none; font-family: inherit;
-  transition: background 0.12s, transform 0.1s;
-}
+.btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: background 0.12s, transform 0.1s; }
 .btn:active { transform: scale(0.97); }
 .btn-primary { background: var(--accent); color: white; }
 .btn-primary:hover { background: var(--accent-h); }
@@ -202,12 +148,15 @@ select:focus, input:focus, textarea:focus {
 .task-item.done .task-title { text-decoration: line-through; color: var(--text3); }
 .task-item.overdue { border-left: 3px solid var(--high); }
 
-.cb {
-  width: 18px; height: 18px; border: 2px solid var(--border2);
-  border-radius: 5px; cursor: pointer; flex-shrink: 0; margin-top: 1px;
-  display: flex; align-items: center; justify-content: center; background: white;
-  transition: all 0.12s;
+/* ★ タスクルーティン：完了後インライン日付セッター */
+.task-routine-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-top: 8px; padding: 8px 10px;
+  background: #f0fdf4; border: 1px solid #86efac;
+  border-radius: 8px; animation: fadeUp 0.2s ease;
 }
+
+.cb { width: 18px; height: 18px; border: 2px solid var(--border2); border-radius: 5px; cursor: pointer; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; background: white; transition: all 0.12s; }
 .cb:hover { border-color: var(--accent); }
 .cb.checked { background: var(--accent); border-color: var(--accent); }
 .cb.checked::after { content: '✓'; color: white; font-size: 11px; font-weight: 800; }
@@ -217,11 +166,7 @@ select:focus, input:focus, textarea:focus {
 .task-title { font-size: 14px; font-weight: 500; flex: 1; min-width: 0; word-break: break-word; }
 .task-desc-text { font-size: 12px; color: var(--text2); margin-top: 3px; }
 
-.badge {
-  font-size: 10px; font-weight: 700; padding: 1px 7px;
-  border-radius: 10px; white-space: nowrap; flex-shrink: 0;
-  letter-spacing: 0.04em;
-}
+.badge { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.04em; }
 .p-high { background: #fee2e2; color: #dc2626; }
 .p-medium { background: #fef3c7; color: #d97706; }
 .p-low { background: #dcfce7; color: #16a34a; }
@@ -232,58 +177,27 @@ select:focus, input:focus, textarea:focus {
 .assignee-tag { background: var(--accent-light); color: var(--accent); font-size: 11px; font-weight: 500; padding: 1px 7px; border-radius: 10px; }
 
 .task-actions { display: flex; gap: 4px; flex-shrink: 0; }
-.icon-btn {
-  width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--border);
-  background: transparent; cursor: pointer; display: flex; align-items: center;
-  justify-content: center; font-size: 12px; color: var(--text3); transition: all 0.12s;
-}
+.icon-btn { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--border); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text3); transition: all 0.12s; }
 .icon-btn:hover { background: var(--border); color: var(--text); }
 .icon-btn.del:hover { background: #fee2e2; border-color: #fca5a5; color: #b91c1c; }
 
-/* ── Project Drag & Drop ── */
-.proj-drag-handle {
-  cursor: grab; color: var(--text3); font-size: 16px;
-  padding: 0 4px; border-radius: 4px; transition: color 0.12s;
-  user-select: none; flex-shrink: 0;
-}
+.proj-drag-handle { cursor: grab; color: var(--text3); font-size: 16px; padding: 0 4px; border-radius: 4px; transition: color 0.12s; user-select: none; flex-shrink: 0; }
 .proj-drag-handle:hover { color: var(--accent); }
 .proj-drag-handle:active { cursor: grabbing; }
 .project-card.dragging-proj { opacity: 0.4; border: 2px dashed var(--accent); }
-.project-card.drag-over-proj {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(99,102,241,0.25), var(--shadow);
-}
+.project-card.drag-over-proj { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(99,102,241,0.25), var(--shadow); }
 
-/* ── Drag & Drop ── */
-.drag-handle {
-  cursor: grab; color: var(--text3); font-size: 14px; flex-shrink: 0;
-  padding: 2px 2px; border-radius: 4px; transition: color 0.12s;
-  user-select: none; line-height: 1;
-}
+.drag-handle { cursor: grab; color: var(--text3); font-size: 14px; flex-shrink: 0; padding: 2px 2px; border-radius: 4px; transition: color 0.12s; user-select: none; line-height: 1; }
 .drag-handle:hover { color: var(--text2); }
 .drag-handle:active { cursor: grabbing; }
-.task-item.dragging {
-  opacity: 0.4; border: 2px dashed var(--accent);
-}
-.task-item.drag-over {
-  border-color: var(--accent); box-shadow: 0 0 0 2px rgba(99,102,241,0.25);
-  background: var(--accent-light);
-}
+.task-item.dragging { opacity: 0.4; border: 2px dashed var(--accent); }
+.task-item.drag-over { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(99,102,241,0.25); background: var(--accent-light); }
 
-/* ── Empty state ── */
 .empty-tasks { padding: 16px 0; text-align: center; color: var(--text3); font-size: 13px; }
 
-/* ── Modals ── */
-.overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35);
-  z-index: 300; align-items: center; justify-content: center; padding: 20px;
-}
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
 .overlay.open { display: flex; }
-.modal {
-  background: var(--surface); border-radius: 14px; padding: 26px;
-  width: 100%; max-width: 500px; box-shadow: var(--shadow2);
-  animation: modalIn 0.18s ease;
-}
+.modal { background: var(--surface); border-radius: 14px; padding: 26px; width: 100%; max-width: 500px; box-shadow: var(--shadow2); animation: modalIn 0.18s ease; }
 @keyframes modalIn { from { opacity:0; transform:scale(0.95); } to { opacity:1; transform:scale(1); } }
 .modal h2 { font-size: 16px; font-weight: 700; margin-bottom: 18px; }
 .field { margin-bottom: 12px; display: flex; flex-direction: column; gap: 5px; }
@@ -294,7 +208,6 @@ select:focus, input:focus, textarea:focus {
 .modal-row .field { flex: 1; }
 .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
 
-/* ── Responsive ── */
 @media (max-width: 700px) {
   .sidebar { display: none; }
   .main { padding: 16px; }
@@ -312,7 +225,6 @@ select:focus, input:focus, textarea:focus {
 </header>
 
 <div class="layout">
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-title">プロジェクト</div>
@@ -324,7 +236,6 @@ select:focus, input:focus, textarea:focus {
     </div>
   </div>
 
-  <!-- Main -->
   <div class="main" id="mainArea">
     <div class="filter-bar">
       <div class="search-wrap">
@@ -366,7 +277,7 @@ select:focus, input:focus, textarea:focus {
     <div class="field" style="border-top:1px solid var(--border);padding-top:14px;margin-top:4px">
       <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">繰り返し設定</div>
       <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px">
-        <input type="checkbox" id="projRoutineCheck" style="width:16px;height:16px;accent-color:#7c3aed" onchange="onRoutineChange()">
+        <input type="checkbox" id="projRoutineCheck" style="width:16px;height:16px;accent-color:#7c3aed">
         <span>✅ 全タスク完了後にルーティンとして再開する</span>
       </label>
       <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px">
@@ -378,7 +289,6 @@ select:focus, input:focus, textarea:focus {
         <input type="number" id="projRecurDay" min="1" max="31" placeholder="1" style="width:70px;text-align:center">
         <span style="font-size:13px;color:var(--text2)">日にリセット</span>
       </div>
-      <!-- ★ 次回実施日の指定 -->
       <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:8px">
         <input type="checkbox" id="projScheduledCheck" style="width:16px;height:16px;accent-color:#0ea5e9" onchange="document.getElementById('scheduledDateWrap').style.display=this.checked?'flex':'none'">
         📅 次回実施日を指定（特定の日付でリセット）
@@ -425,6 +335,24 @@ select:focus, input:focus, textarea:focus {
         <input type="date" id="editTaskDue">
       </div>
     </div>
+    <!-- ★ タスクのルーティン設定 -->
+    <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:4px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">繰り返し設定</div>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:10px">
+        <input type="checkbox" id="editTaskRoutine" style="width:16px;height:16px;accent-color:#7c3aed" onchange="document.getElementById('taskScheduledWrap').style.display=this.checked?'block':'none'">
+        <span>🔄 ルーティンタスクとして管理する</span>
+      </label>
+      <div id="taskScheduledWrap" style="display:none;padding-left:24px">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:8px">
+          <input type="checkbox" id="editTaskScheduledCheck" style="width:16px;height:16px;accent-color:#0ea5e9" onchange="document.getElementById('editTaskScheduledDateWrap').style.display=this.checked?'flex':'none'">
+          📅 次回実施日を今すぐ設定する
+        </label>
+        <div id="editTaskScheduledDateWrap" style="display:none;align-items:center;gap:8px;padding-left:24px">
+          <input type="date" id="editTaskScheduledDate" style="width:170px">
+          <span style="font-size:12px;color:var(--text2)">この日に自動リセット</span>
+        </div>
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('taskModal')">キャンセル</button>
       <button class="btn btn-primary" onclick="saveTaskEdit()">保存</button>
@@ -443,31 +371,31 @@ if (!data) {
         id: uid(), icon: '🎬', name: '森山様', desc: '',
         open: true, routine: true, recurrenceDay: null, lastReset: null, scheduledDate: null,
         tasks: [
-          { id: uid(), title: '企画書作成', desc: '', assignee: '', priority: 'medium', due: '', done: false },
-          { id: uid(), title: 'スケジュール作成', desc: '', assignee: '', priority: 'medium', due: '', done: false },
-          { id: uid(), title: '撮影場所用意', desc: '', assignee: '', priority: 'medium', due: '', done: false },
+          { id: uid(), title: '企画書作成', desc: '', assignee: '', priority: 'medium', due: '', done: false, routine: false, scheduledDate: null },
+          { id: uid(), title: 'スケジュール作成', desc: '', assignee: '', priority: 'medium', due: '', done: false, routine: false, scheduledDate: null },
+          { id: uid(), title: '撮影場所用意', desc: '', assignee: '', priority: 'medium', due: '', done: false, routine: false, scheduledDate: null },
         ]
       },
       {
         id: uid(), icon: '📸', name: 'レベクリ', desc: '',
         open: true, scheduledDate: null,
         tasks: [
-          { id: uid(), title: 'インスタ投稿', desc: '', assignee: '', priority: 'medium', due: '', done: false },
+          { id: uid(), title: 'インスタ投稿', desc: '', assignee: '', priority: 'medium', due: '', done: false, routine: false, scheduledDate: null },
         ]
       },
       {
         id: uid(), icon: '🏢', name: 'AIZAC', desc: '',
         open: true, scheduledDate: null,
         tasks: [
-          { id: uid(), title: 'キャスティング事業部資料作成', desc: '', assignee: '', priority: 'medium', due: '', done: false },
+          { id: uid(), title: 'キャスティング事業部資料作成', desc: '', assignee: '', priority: 'medium', due: '', done: false, routine: false, scheduledDate: null },
         ]
       },
       {
         id: uid(), icon: '🗓️', name: '秘書', desc: '',
         open: true, scheduledDate: null,
         tasks: [
-          { id: uid(), title: '送迎', desc: '', assignee: '', priority: 'medium', due: '', done: false },
-          { id: uid(), title: '会食・商談参加', desc: '', assignee: '', priority: 'medium', due: '', done: false },
+          { id: uid(), title: '送迎', desc: '', assignee: '', priority: 'medium', due: '', done: false, routine: false, scheduledDate: null },
+          { id: uid(), title: '会食・商談参加', desc: '', assignee: '', priority: 'medium', due: '', done: false, routine: false, scheduledDate: null },
         ]
       },
     ]
@@ -475,13 +403,21 @@ if (!data) {
   save();
 }
 
+// 既存データに新フィールドがなければマイグレーション
+data.projects.forEach(p => {
+  if (!('scheduledDate' in p)) p.scheduledDate = null;
+  p.tasks.forEach(t => {
+    if (!('routine' in t)) t.routine = false;
+    if (!('scheduledDate' in t)) t.scheduledDate = null;
+  });
+});
+
 let statusFilter = 'all';
 let editingProjectId = null;
 let editingTaskId = null;
 let editingTaskProjectId = null;
 
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
-function nd(d) { const dt = new Date(); dt.setDate(dt.getDate()+d); return dt.toISOString().slice(0,10); }
 function save() { localStorage.setItem('todo_v3', JSON.stringify(data)); }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function today() { return new Date().toISOString().slice(0,10); }
@@ -500,10 +436,6 @@ const PRI = { high:'高', medium:'中', low:'低' };
 const PRI_CLS = { high:'p-high', medium:'p-medium', low:'p-low' };
 
 // ── Project CRUD ──────────────────────────────────────────────
-function onRoutineChange() {
-  // no extra UI needed for routine
-}
-
 function setRecurUI(routine, day, scheduledDate) {
   document.getElementById('projRoutineCheck').checked = !!routine;
   const check = document.getElementById('projRecurCheck');
@@ -511,8 +443,6 @@ function setRecurUI(routine, day, scheduledDate) {
   check.checked = !!day;
   wrap.style.display = day ? 'flex' : 'none';
   document.getElementById('projRecurDay').value = day || '';
-
-  // scheduled date
   const schedCheck = document.getElementById('projScheduledCheck');
   const schedWrap = document.getElementById('scheduledDateWrap');
   schedCheck.checked = !!scheduledDate;
@@ -552,25 +482,13 @@ function saveProject() {
   const routine = document.getElementById('projRoutineCheck').checked;
   const checked = document.getElementById('projRecurCheck').checked;
   const recurDay = checked ? parseInt(document.getElementById('projRecurDay').value) || null : null;
-
-  // ★ 次回実施日
   const schedChecked = document.getElementById('projScheduledCheck').checked;
   const scheduledDate = schedChecked ? (document.getElementById('projScheduledDate').value || null) : null;
-
   if (editingProjectId) {
     const p = data.projects.find(p=>p.id===editingProjectId);
-    if (p) {
-      p.name = name; p.desc = desc; p.icon = icon;
-      p.routine = routine; p.recurrenceDay = recurDay;
-      p.scheduledDate = scheduledDate;
-    }
+    if (p) { p.name=name; p.desc=desc; p.icon=icon; p.routine=routine; p.recurrenceDay=recurDay; p.scheduledDate=scheduledDate; }
   } else {
-    data.projects.push({
-      id: uid(), icon, name, desc,
-      open: true, routine, recurrenceDay: recurDay,
-      lastReset: null, scheduledDate,
-      tasks: []
-    });
+    data.projects.push({ id:uid(), icon, name, desc, open:true, routine, recurrenceDay:recurDay, lastReset:null, scheduledDate, tasks:[] });
   }
   save(); closeModal('projectModal'); render();
 }
@@ -579,33 +497,19 @@ function resetRoutine(projectId) {
   const p = data.projects.find(p=>p.id===projectId);
   if (!p) return;
   p.tasks.forEach(t => { t.done = false; });
-  p.scheduledDate = null; // clear scheduled date after manual reset
+  p.scheduledDate = null;
   save(); render();
 }
 
-// ★ 完了後バナーから次回実施日を設定してタスクリセット
-function setScheduledAndReset(projectId) {
-  const p = data.projects.find(p=>p.id===projectId);
-  if (!p) return;
-  const dateInput = document.getElementById('banner_date_' + projectId);
-  const dateVal = dateInput ? dateInput.value : '';
-  if (!dateVal) { if (dateInput) dateInput.focus(); return; }
-  p.scheduledDate = dateVal;
-  save(); render();
-}
-
-// ★ 完了後バナーから次回実施日を設定（リセットしない、日付だけ保存）
 function saveScheduledDateOnly(projectId) {
   const p = data.projects.find(p=>p.id===projectId);
   if (!p) return;
-  const dateInput = document.getElementById('banner_date_' + projectId);
-  const dateVal = dateInput ? dateInput.value : '';
-  if (!dateVal) { if (dateInput) dateInput.focus(); return; }
-  p.scheduledDate = dateVal;
+  const el = document.getElementById('banner_date_' + projectId);
+  if (!el || !el.value) { if(el) el.focus(); return; }
+  p.scheduledDate = el.value;
   save(); render();
 }
 
-// ★ 設定済みの次回実施日をクリア
 function clearScheduledDate(projectId) {
   const p = data.projects.find(p=>p.id===projectId);
   if (!p) return;
@@ -633,13 +537,14 @@ function addTask(projectId) {
   const title = titleEl.value.trim();
   if (!title) { titleEl.focus(); return; }
   p.tasks.unshift({
-    id: uid(),
-    title,
+    id: uid(), title,
     desc: '',
     assignee: document.getElementById('nt_assignee_'+projectId).value.trim(),
     priority: document.getElementById('nt_pri_'+projectId).value,
     due: document.getElementById('nt_due_'+projectId).value,
-    done: false
+    done: false,
+    routine: false,
+    scheduledDate: null
   });
   save();
   titleEl.value = '';
@@ -673,6 +578,14 @@ function openEditTask(projectId, taskId) {
   document.getElementById('editTaskAssignee').value = t.assignee||'';
   document.getElementById('editTaskPriority').value = t.priority;
   document.getElementById('editTaskDue').value = t.due||'';
+  // ★ ルーティン設定
+  const routineCheck = document.getElementById('editTaskRoutine');
+  routineCheck.checked = !!t.routine;
+  document.getElementById('taskScheduledWrap').style.display = t.routine ? 'block' : 'none';
+  const schedCheck = document.getElementById('editTaskScheduledCheck');
+  schedCheck.checked = !!t.scheduledDate;
+  document.getElementById('editTaskScheduledDateWrap').style.display = t.scheduledDate ? 'flex' : 'none';
+  document.getElementById('editTaskScheduledDate').value = t.scheduledDate || '';
   document.getElementById('taskModal').classList.add('open');
   setTimeout(() => document.getElementById('editTaskTitle').focus(), 50);
 }
@@ -688,9 +601,43 @@ function saveTaskEdit() {
     t.assignee = document.getElementById('editTaskAssignee').value.trim();
     t.priority = document.getElementById('editTaskPriority').value;
     t.due = document.getElementById('editTaskDue').value;
+    // ★ ルーティン
+    t.routine = document.getElementById('editTaskRoutine').checked;
+    const schedOn = document.getElementById('editTaskScheduledCheck').checked;
+    t.scheduledDate = (t.routine && schedOn) ? (document.getElementById('editTaskScheduledDate').value || null) : null;
     save(); render();
   }
   closeModal('taskModal');
+}
+
+// ★ タスクの次回実施日をインラインから設定
+function setTaskScheduledDate(projectId, taskId) {
+  const p = data.projects.find(p=>p.id===projectId);
+  const t = p?.tasks.find(t=>t.id===taskId);
+  if (!t) return;
+  const el = document.getElementById(`tr_date_${taskId}`);
+  if (!el || !el.value) { if(el) el.focus(); return; }
+  t.scheduledDate = el.value;
+  save(); render();
+}
+
+// ★ タスクの次回実施日をクリアして今すぐリセット
+function resetTaskNow(projectId, taskId) {
+  const p = data.projects.find(p=>p.id===projectId);
+  const t = p?.tasks.find(t=>t.id===taskId);
+  if (!t) return;
+  t.done = false;
+  t.scheduledDate = null;
+  save(); render();
+}
+
+// ★ タスクの次回実施日をクリア
+function clearTaskScheduledDate(projectId, taskId) {
+  const p = data.projects.find(p=>p.id===projectId);
+  const t = p?.tasks.find(t=>t.id===taskId);
+  if (!t) return;
+  t.scheduledDate = null;
+  save(); render();
 }
 
 // ── Modal helpers ─────────────────────────────────────────────
@@ -722,7 +669,7 @@ function filterTasks(tasks) {
   });
 }
 
-// ── Monthly Recurrence ───────────────────────────────────────
+// ── Recurrence ───────────────────────────────────────────────
 function currentYM() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
@@ -734,20 +681,26 @@ function checkRecurrence() {
   const ym = currentYM();
   let changed = false;
   data.projects.forEach(p => {
-    // 毎月指定日リセット
-    if (p.recurrenceDay) {
-      if (p.lastReset !== ym && todayDay >= p.recurrenceDay) {
-        p.tasks.forEach(t => { t.done = false; });
-        p.lastReset = ym;
-        changed = true;
-      }
+    // 毎月指定日リセット（プロジェクト）
+    if (p.recurrenceDay && p.lastReset !== ym && todayDay >= p.recurrenceDay) {
+      p.tasks.forEach(t => { t.done = false; });
+      p.lastReset = ym;
+      changed = true;
     }
-    // ★ 次回実施日リセット
+    // 次回実施日リセット（プロジェクト）
     if (p.scheduledDate && p.scheduledDate <= todayStr) {
       p.tasks.forEach(t => { t.done = false; });
       p.scheduledDate = null;
       changed = true;
     }
+    // ★ 次回実施日リセット（タスク個別）
+    p.tasks.forEach(t => {
+      if (t.scheduledDate && t.scheduledDate <= todayStr) {
+        t.done = false;
+        t.scheduledDate = null;
+        changed = true;
+      }
+    });
   });
   if (changed) save();
 }
@@ -758,8 +711,7 @@ function nextResetDate(p) {
   let y = now.getFullYear(), m = now.getMonth();
   const ym = currentYM();
   if (now.getDate() >= p.recurrenceDay && p.lastReset === ym) {
-    m += 1;
-    if (m > 11) { m = 0; y += 1; }
+    m += 1; if (m > 11) { m = 0; y += 1; }
   }
   const maxDay = new Date(y, m+1, 0).getDate();
   const day = Math.min(p.recurrenceDay, maxDay);
@@ -789,7 +741,6 @@ function scrollToProject(id) {
 
 function render() {
   renderSidebar();
-
   const q = document.getElementById('searchInput').value.toLowerCase();
   const pri = document.getElementById('filterPri').value;
   let totalTasks = 0, doneTasks = 0;
@@ -798,47 +749,77 @@ function render() {
     const filtered = filterTasks(p.tasks);
     totalTasks += p.tasks.length;
     doneTasks += p.tasks.filter(t=>t.done).length;
-
     const allTotal = p.tasks.length;
     const allDone = p.tasks.filter(t=>t.done).length;
     const pct = allTotal ? Math.round(allDone/allTotal*100) : 0;
+    const allComplete = p.tasks.length > 0 && p.tasks.every(t => t.done);
 
     const taskRows = filtered.map(t => {
       const over = isOverdue(t.due, t.done);
-      return `<div class="task-item ${t.done?'done':''} ${over?'overdue':''}"
-        draggable="true"
-        data-pid="${p.id}" data-tid="${t.id}"
-        ondragstart="onDragStart(event,'${p.id}','${t.id}')"
-        ondragover="onDragOver(event)"
-        ondragenter="onDragEnter(event)"
-        ondragleave="onDragLeave(event)"
-        ondrop="onDrop(event,'${p.id}','${t.id}')"
-        ondragend="onDragEnd(event)">
-        <span class="drag-handle" title="ドラッグして並び替え">⠿</span>
-        <div class="cb ${t.done?'checked':''}" onclick="toggleTask('${p.id}','${t.id}')"></div>
-        <div class="task-body">
-          <div class="task-top">
-            <span class="task-title">${esc(t.title)}</span>
-            <span class="badge ${PRI_CLS[t.priority]}">${PRI[t.priority]}</span>
+
+      // ★ タスクルーティン：完了後インラインUI
+      let taskRoutineRow = '';
+      if (t.routine && t.done) {
+        if (t.scheduledDate) {
+          // 次回実施日設定済み
+          taskRoutineRow = `
+            <div class="task-routine-row">
+              <span style="font-size:13px">📅</span>
+              <span style="font-size:12px;font-weight:600;color:#15803d">次回：${fmtDate(t.scheduledDate)}</span>
+              <span style="font-size:11px;color:#16a34a">に自動でリセットされます</span>
+              <button class="btn btn-sm" style="background:white;color:#15803d;border:1px solid #86efac;margin-left:auto;padding:3px 10px;font-size:11px" onclick="openEditTask('${p.id}','${t.id}')">変更</button>
+              <button class="btn btn-sm" style="background:white;color:#64748b;border:1px solid var(--border);padding:3px 10px;font-size:11px" onclick="resetTaskNow('${p.id}','${t.id}')">今すぐ開始</button>
+            </div>`;
+        } else {
+          // 次回実施日未設定 → 日付ピッカー表示
+          taskRoutineRow = `
+            <div class="task-routine-row">
+              <span style="font-size:13px">🔄</span>
+              <span style="font-size:12px;font-weight:600;color:#15803d">次回実施日：</span>
+              <input type="date" id="tr_date_${t.id}" style="font-size:12px;padding:4px 8px;border:1px solid #86efac;border-radius:6px;background:white;color:#166534" min="${today()}">
+              <button class="btn btn-sm" style="background:#16a34a;color:white;padding:4px 10px;font-size:11px" onclick="setTaskScheduledDate('${p.id}','${t.id}')">設定</button>
+              <button class="btn btn-sm" style="background:white;color:#64748b;border:1px solid var(--border);padding:4px 10px;font-size:11px" onclick="resetTaskNow('${p.id}','${t.id}')">今すぐ開始</button>
+            </div>`;
+        }
+      }
+
+      return `<div style="display:flex;flex-direction:column;gap:0">
+        <div class="task-item ${t.done?'done':''} ${over?'overdue':''}"
+          draggable="true"
+          data-pid="${p.id}" data-tid="${t.id}"
+          ondragstart="onDragStart(event,'${p.id}','${t.id}')"
+          ondragover="onDragOver(event)"
+          ondragenter="onDragEnter(event)"
+          ondragleave="onDragLeave(event)"
+          ondrop="onDrop(event,'${p.id}','${t.id}')"
+          ondragend="onDragEnd(event)">
+          <span class="drag-handle" title="ドラッグして並び替え">⠿</span>
+          <div class="cb ${t.done?'checked':''}" onclick="toggleTask('${p.id}','${t.id}')"></div>
+          <div class="task-body">
+            <div class="task-top">
+              <span class="task-title">${esc(t.title)}</span>
+              <span class="badge ${PRI_CLS[t.priority]}">${PRI[t.priority]}</span>
+              ${t.routine ? `<span class="badge" style="background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0">🔄 ルーティン</span>` : ''}
+            </div>
+            ${t.desc ? `<div class="task-desc-text">${esc(t.desc)}</div>` : ''}
+            <div class="task-foot">
+              ${t.assignee ? `<span class="assignee-tag">👤 ${esc(t.assignee)}</span>` : ''}
+              ${t.due ? `<span class="meta ${over?'overdue-lbl':''}">📅 ${fmtDate(t.due)}${over?' ⚠ 期限切れ':''}</span>` : ''}
+              ${(t.routine && !t.done && t.scheduledDate) ? `<span class="meta" style="color:#0369a1">📅 次回：${fmtDate(t.scheduledDate)}</span>` : ''}
+            </div>
           </div>
-          ${t.desc ? `<div class="task-desc-text">${esc(t.desc)}</div>` : ''}
-          <div class="task-foot">
-            ${t.assignee ? `<span class="assignee-tag">👤 ${esc(t.assignee)}</span>` : ''}
-            ${t.due ? `<span class="meta ${over?'overdue-lbl':''}">📅 ${fmtDate(t.due)}${over?' ⚠ 期限切れ':''}</span>` : ''}
+          <div class="task-actions">
+            <button class="icon-btn" onclick="openEditTask('${p.id}','${t.id}')" title="編集">✏️</button>
+            <button class="icon-btn del" onclick="deleteTask('${p.id}','${t.id}')" title="削除">🗑️</button>
           </div>
         </div>
-        <div class="task-actions">
-          <button class="icon-btn" onclick="openEditTask('${p.id}','${t.id}')" title="編集">✏️</button>
-          <button class="icon-btn del" onclick="deleteTask('${p.id}','${t.id}')" title="削除">🗑️</button>
-        </div>
+        ${taskRoutineRow}
       </div>`;
     }).join('');
 
     const emptyMsg = filtered.length === 0 ? `<div class="empty-tasks">${q||pri ? '条件に一致するタスクがありません' : 'タスクがありません。下から追加できます。'}</div>` : '';
 
-    const allComplete = p.tasks.length > 0 && p.tasks.every(t => t.done);
-
-    // ★ 次回実施日バナー（設定済み・待機中）
+    // プロジェクトの次回実施日バナー（未完了時）
     const scheduledBanner = (!allComplete && p.scheduledDate) ? `
       <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #7dd3fc;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease">
         <span style="font-size:22px">📅</span>
@@ -850,39 +831,37 @@ function render() {
         <button class="btn btn-sm" style="background:white;color:#64748b;border:1px solid var(--border);white-space:nowrap" onclick="clearScheduledDate('${p.id}')">✕</button>
       </div>` : '';
 
-    // ★ 完了バナー（ルーティン）
+    // プロジェクトのルーティン完了バナー
     let routineBanner = '';
     if (p.routine && allComplete) {
       if (p.scheduledDate) {
-        // 次回実施日が設定済みの場合
         routineBanner = `
-        <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f3e8ff,#ede9fe);border:1px solid #c4b5fd;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease">
-          <span style="font-size:24px">🎉</span>
-          <div style="flex:1">
-            <div style="font-size:14px;font-weight:700;color:#5b21b6">今月の撮影お疲れ様でした！</div>
-            <div style="font-size:12px;color:#7c3aed;margin-top:2px">次回実施日：<strong>${fmtDate(p.scheduledDate)}</strong> に自動でリセットされます</div>
-          </div>
-          <button class="btn btn-sm" style="background:white;color:#7c3aed;border:1px solid #c4b5fd;white-space:nowrap" onclick="openEditProject('${p.id}')">日付を変更</button>
-          <button class="btn btn-sm" style="background:#7c3aed;color:white;white-space:nowrap" onclick="resetRoutine('${p.id}')">今すぐ開始</button>
-        </div>`;
-      } else {
-        // 次回実施日が未設定の場合 → 日付ピッカーを表示
-        routineBanner = `
-        <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f3e8ff,#ede9fe);border:1px solid #c4b5fd;border-radius:10px;padding:14px 16px;animation:fadeUp .3s ease">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f3e8ff,#ede9fe);border:1px solid #c4b5fd;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease">
             <span style="font-size:24px">🎉</span>
             <div style="flex:1">
               <div style="font-size:14px;font-weight:700;color:#5b21b6">今月の撮影お疲れ様でした！</div>
-              <div style="font-size:12px;color:#7c3aed;margin-top:2px">次回実施日を設定するか、今すぐ開始できます</div>
+              <div style="font-size:12px;color:#7c3aed;margin-top:2px">次回実施日：<strong>${fmtDate(p.scheduledDate)}</strong> に自動でリセットされます</div>
             </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-left:36px">
-            <span style="font-size:13px;color:#5b21b6;font-weight:600">📅 次回実施日：</span>
-            <input type="date" id="banner_date_${p.id}" style="width:160px;font-size:13px;padding:6px 10px;border:1px solid #c4b5fd;border-radius:8px;background:white;color:#1e1b4b" min="${today()}">
-            <button class="btn btn-sm" style="background:#6366f1;color:white;white-space:nowrap" onclick="saveScheduledDateOnly('${p.id}')">設定して待機</button>
-            <button class="btn btn-sm" style="background:white;color:#7c3aed;border:1px solid #c4b5fd;white-space:nowrap" onclick="resetRoutine('${p.id}')">今すぐ開始</button>
-          </div>
-        </div>`;
+            <button class="btn btn-sm" style="background:white;color:#7c3aed;border:1px solid #c4b5fd;white-space:nowrap" onclick="openEditProject('${p.id}')">日付を変更</button>
+            <button class="btn btn-sm" style="background:#7c3aed;color:white;white-space:nowrap" onclick="resetRoutine('${p.id}')">今すぐ開始</button>
+          </div>`;
+      } else {
+        routineBanner = `
+          <div style="margin:10px 0 4px;background:linear-gradient(135deg,#f3e8ff,#ede9fe);border:1px solid #c4b5fd;border-radius:10px;padding:14px 16px;animation:fadeUp .3s ease">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+              <span style="font-size:24px">🎉</span>
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:700;color:#5b21b6">今月の撮影お疲れ様でした！</div>
+                <div style="font-size:12px;color:#7c3aed;margin-top:2px">次回実施日を設定するか、今すぐ開始できます</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-left:36px">
+              <span style="font-size:13px;color:#5b21b6;font-weight:600">📅 次回実施日：</span>
+              <input type="date" id="banner_date_${p.id}" style="width:160px;font-size:13px;padding:6px 10px;border:1px solid #c4b5fd;border-radius:8px;background:white;color:#1e1b4b" min="${today()}">
+              <button class="btn btn-sm" style="background:#6366f1;color:white;white-space:nowrap" onclick="saveScheduledDateOnly('${p.id}')">設定して待機</button>
+              <button class="btn btn-sm" style="background:white;color:#7c3aed;border:1px solid #c4b5fd;white-space:nowrap" onclick="resetRoutine('${p.id}')">今すぐ開始</button>
+            </div>
+          </div>`;
       }
     }
 
@@ -946,22 +925,15 @@ function render() {
 
 // ── Project Drag & Drop ──────────────────────────────────────
 let dragSrcProjId = null;
-
 function onProjDragStart(e, pid) {
-  dragSrcProjId = pid;
-  e.dataTransfer.effectAllowed = 'move';
-  e.stopPropagation();
+  dragSrcProjId = pid; e.dataTransfer.effectAllowed = 'move'; e.stopPropagation();
   setTimeout(() => e.currentTarget.classList.add('dragging-proj'), 0);
 }
 function onProjDragEnd(e) {
   e.currentTarget.classList.remove('dragging-proj');
   document.querySelectorAll('.project-card').forEach(el => el.classList.remove('drag-over-proj'));
 }
-function onProjDragOver(e, pid) {
-  if (!dragSrcProjId) return;
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-}
+function onProjDragOver(e, pid) { if (!dragSrcProjId) return; e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
 function onProjDragEnter(e, pid) {
   if (!dragSrcProjId || pid === dragSrcProjId) return;
   e.currentTarget.classList.add('drag-over-proj');
@@ -971,8 +943,7 @@ function onProjDragLeave(e, pid) {
   if (!card.contains(e.relatedTarget)) card.classList.remove('drag-over-proj');
 }
 function onProjDrop(e, tgtPid) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over-proj');
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over-proj');
   if (dragSrcProjId === tgtPid) return;
   const srcIdx = data.projects.findIndex(p => p.id === dragSrcProjId);
   const tgtIdx = data.projects.findIndex(p => p.id === tgtPid);
@@ -982,40 +953,25 @@ function onProjDrop(e, tgtPid) {
   save(); render();
 }
 
-// ── Drag & Drop ──────────────────────────────────────────────
+// ── Task Drag & Drop ─────────────────────────────────────────
 let dragSrcPid = null, dragSrcTid = null;
-
 function onDragStart(e, pid, tid) {
-  dragSrcPid = pid; dragSrcTid = tid;
-  e.dataTransfer.effectAllowed = 'move';
-  setTimeout(() => e.target.classList.add('dragging'), 0);
+  dragSrcPid = pid; dragSrcTid = tid; e.dataTransfer.effectAllowed = 'move';
+  setTimeout(() => e.target.closest('.task-item').classList.add('dragging'), 0);
 }
-
 function onDragEnd(e) {
-  e.target.classList.remove('dragging');
+  e.target.closest('.task-item')?.classList.remove('dragging');
   document.querySelectorAll('.task-item').forEach(el => el.classList.remove('drag-over'));
 }
-
-function onDragOver(e) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-}
-
+function onDragOver(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
 function onDragEnter(e) {
   const item = e.currentTarget;
   if (item.dataset.tid !== dragSrcTid) item.classList.add('drag-over');
 }
-
-function onDragLeave(e) {
-  e.currentTarget.classList.remove('drag-over');
-}
-
+function onDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
 function onDrop(e, tgtPid, tgtTid) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  if (dragSrcTid === tgtTid) return;
-  if (dragSrcPid !== tgtPid) return; // only within same project
-
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  if (dragSrcTid === tgtTid || dragSrcPid !== tgtPid) return;
   const p = data.projects.find(p => p.id === tgtPid);
   if (!p) return;
   const srcIdx = p.tasks.findIndex(t => t.id === dragSrcTid);
